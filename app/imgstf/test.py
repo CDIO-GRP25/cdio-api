@@ -1,3 +1,4 @@
+import cv2 as cv
 
 def showCard(img):
     card = findCard(img)
@@ -45,3 +46,4 @@ def testUploads():
     for corner in corners:
         print('-'*40)
         compareImg(corner)
+

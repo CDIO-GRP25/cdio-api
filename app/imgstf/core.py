@@ -44,3 +44,25 @@ def findCard(img):
         if len(aprox) == 4:
             print('found card')
             return extractCard(aprox,img)
+
+
+def extractBoard():
+    img = cv.imread('deck.png')
+    w = 1000
+    h = 1300
+    b = 100
+
+    sym = ['spade', 'heart', 'diamond', 'clubs']
+    num = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'knight', 'queen', 'king']
+
+    for i in range(4):
+        print(i)
+        for j in range(13):
+            card = findCard(img[b+i*h:b+i*h+h,b+j*w:b+j*w+w])
+            print(j)
+            '''cv.imshow(f'{i}{j}',card)'''
+
+if __name__ == "__main__":
+    #img = cv.imread('ace.jpg')
+    #findCard(img)
+    extractBoard()           
