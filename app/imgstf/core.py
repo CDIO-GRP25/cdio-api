@@ -63,6 +63,6 @@ def extractBoard():
             '''cv.imshow(f'{i}{j}',card)'''
 
 if __name__ == "__main__":
-    #img = cv.imread('ace.jpg')
-    #findCard(img)
-    extractBoard()           
+    img = cv.imread('ace.jpg')
+    findCard(img)
+    #extractBoard()           
