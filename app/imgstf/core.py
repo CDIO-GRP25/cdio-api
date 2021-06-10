@@ -1,7 +1,10 @@
 import cv2 as cv
+from imutils.convenience import rotate
 import numpy as np
 import imutils as util
+from numpy.lib.type_check import imag
 import skimage.exposure
+from imgstf import edge
 
 #TODO make this object oriented
 
@@ -26,8 +29,6 @@ def extractCornor(card):
     cornor = card[0:80,0:30]
     top = cornor[:40]
     bot = cornor[40:]
-    cv.imshow('img', bot)
-    cv.waitKey(0)
     cornor = cv.cvtColor(cornor,cv.COLOR_RGB2GRAY)
     _, cornor = cv.threshold(cornor, 0, 255, cv.THRESH_OTSU | cv.THRESH_BINARY_INV)
 
@@ -40,14 +41,14 @@ def extractCornor(card):
 def find_card(img):
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     gray = cv.subtract(255,gray)
-    ret,thresh = cv.threshold(gray,75,255,cv.THRESH_TOZERO)
-    kernel1 = cv.getStructuringElement(cv.MORPH_ELLIPSE,(11,11))
+    ret,thresh = cv.threshold(gray,150,255,cv.THRESH_TOZERO)
+    kernel1 = cv.getStructuringElement(cv.MORPH_ELLIPSE,(3,3))
     kernel2 = np.ones((3,3),np.uint8)
     erosion = cv.erode(thresh,kernel2,iterations = 1)
     dilation = cv.dilate(erosion,kernel1,iterations = 1)
     see = cv.findContours(dilation.copy(),cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE)
     see = util.grab_contours(see)
-    see = sorted(see,key=cv.contourArea,reverse=True)[1:2]
+    see = sorted(see,key=cv.contourArea,reverse=True)[:3]
     for s in see:
         lnked = cv.arcLength(s,True)
         aprox = cv.approxPolyDP(s,0.02*lnked,True)
@@ -69,3 +70,19 @@ def splitstuff(img):
 
     return [extractCornor(x) 
             for x in cards]
+
+def rotate_images(image):
+    image = np.rot90(image)
+    return image
+
+def test_func():
+    image = cv.imread('/home/thomas/Skrivebord/Mapper/OpenCV/cdio-api/images/20210609_161353.jpg')
+
+    image = edge.resize(image)
+
+    image = rotate_images(image)
+
+    cv.imshow('hej',image)
+    cv.waitKey(0)
+
+    image = find_card(image)

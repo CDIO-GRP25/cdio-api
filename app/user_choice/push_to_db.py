@@ -1,17 +1,17 @@
 import numpy as np
 import cv2 as cv
 import os 
-import imutils as util
 import database.database as db
 from imgstf import core
+from imgstf import edge
 
 TOP = True 
 BOTTOM = False
 
 def get_images():
-    images = os.listdir('images')
+    images = os.listdir('/home/thomas/Skrivebord/Mapper/OpenCV/cdio-api/images')
 
-    return [cv.imread(f'images/{x}') for x in images]
+    return [cv.imread(f'/home/thomas/Skrivebord/Mapper/OpenCV/cdio-api/images/{x}') for x in images]
 
 def rotate_images(images):
     images = [np.rot90(x) for x in images]
@@ -19,12 +19,15 @@ def rotate_images(images):
 
 def user_validate_image(image, cornor_part):
     image = core.find_card(image)
+
+    image = edge.resize(image)
+
+    cv.imshow('test',image)
+    cv.waitKey(0)
+
     cornor = core.extractCornor(image)
 
     part = cornor[0] if cornor_part else cornor[1]
-
-    cv.imshow('hej', part)
-    cv.waitKey(0)
 
     if input('Press Y if ok else N').lower() != 'y':
             return None
@@ -48,7 +51,13 @@ def database():
     cornor_part = TOP
 
     for image in images:
+
+        cv.imshow('test',image)
+        cv.waitKey(0)
+        
         part = user_validate_image(image,cornor_part) 
+
+        print(part)
 
         if not part:
             continue
