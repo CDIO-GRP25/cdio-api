@@ -22,6 +22,7 @@ def extractCard(aprox,img):
     pts2 = np.float32([[0, 0], [200, 0], [0, 300], [200, 300]])
     matrix = cv.getPerspectiveTransform(rect, pts2)
     result = cv.warpPerspective(img, matrix, (200, 300))
+
     return result
     
 
@@ -41,11 +42,25 @@ def extractCornor(card):
 def find_card(img):
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     gray = cv.subtract(255,gray)
-    ret,thresh = cv.threshold(gray,150,255,cv.THRESH_TOZERO)
-    kernel1 = cv.getStructuringElement(cv.MORPH_ELLIPSE,(3,3))
-    kernel2 = np.ones((3,3),np.uint8)
+
+    cv.imshow('gray',gray)
+    cv.waitKey(0)
+
+    ret,thresh = cv.threshold(gray,75,255,cv.THRESH_TOZERO)
+    # For at få image 1 til at virke skal denne stå ved 2,2
+    kernel1 = cv.getStructuringElement(cv.MORPH_ELLIPSE,(14,14))
+
+    cv.imshow('thresh',thresh)
+    cv.waitKey(0)
+
+    # For at få image 1 til at virke skal denne stå ved 3,3
+    kernel2 = np.ones((15,15),np.uint8)
     erosion = cv.erode(thresh,kernel2,iterations = 1)
     dilation = cv.dilate(erosion,kernel1,iterations = 1)
+
+    cv.imshow('Dialation',dilation)
+    cv.waitKey(0)
+
     see = cv.findContours(dilation.copy(),cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE)
     see = util.grab_contours(see)
     see = sorted(see,key=cv.contourArea,reverse=True)[:3]
@@ -76,13 +91,17 @@ def rotate_images(image):
     return image
 
 def test_func():
-    image = cv.imread('/home/thomas/Skrivebord/Mapper/OpenCV/cdio-api/images/20210609_161353.jpg')
+    image1 = cv.imread('/home/thomas/Skrivebord/Mapper/OpenCV/cdio-api/images/20210609_161353.jpg')
 
-    image = edge.resize(image)
+    image2 = cv.imread('/home/thomas/Skrivebord/Mapper/OpenCV/cdio-api/images/20210609_161629.jpg')
 
+    image = edge.resize(image2)
     image = rotate_images(image)
 
-    cv.imshow('hej',image)
-    cv.waitKey(0)
+    #cv.imshow('hej',image)
+    #cv.waitKey(0)
 
     image = find_card(image)
+
+    cv.imshow('test2', image)
+    cv.waitKey(0)

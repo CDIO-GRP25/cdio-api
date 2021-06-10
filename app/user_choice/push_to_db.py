@@ -29,7 +29,7 @@ def user_validate_image(image, cornor_part):
 
     part = cornor[0] if cornor_part else cornor[1]
 
-    if input('Press Y if ok else N').lower() != 'y':
+    if input('Press Y if ok else N\n').lower() != 'y':
             return None
 
     return part
@@ -51,13 +51,11 @@ def database():
     cornor_part = TOP
 
     for image in images:
-
-        cv.imshow('test',image)
-        cv.waitKey(0)
         
         part = user_validate_image(image,cornor_part) 
 
-        print(part)
+        cv.imshow('part',part)
+        cv.waitKey(0)
 
         if not part:
             continue
