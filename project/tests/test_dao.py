@@ -1,3 +1,4 @@
+# GRUPPE 21
 import cv2 as cv
 import database.database as db
 from . import core, dao

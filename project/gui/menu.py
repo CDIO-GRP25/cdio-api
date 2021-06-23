@@ -1,3 +1,4 @@
+# GRUPPE 21
 import tkinter as tk
 from tkinter import filedialog
 from os import listdir

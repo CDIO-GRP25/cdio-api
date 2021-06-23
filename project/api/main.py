@@ -1,3 +1,4 @@
+# GRUPPE 21
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware

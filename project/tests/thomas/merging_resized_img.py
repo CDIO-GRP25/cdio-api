@@ -1,3 +1,4 @@
+# GRUPPE 21
 import cv2 as cv
 from core import *
 from os import listdir

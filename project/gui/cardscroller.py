@@ -1,3 +1,4 @@
+# GRUPPE 21
 import tkinter as tk
 from cvengine import edge as im
 from .components import ImageView, InfoView

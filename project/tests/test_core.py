@@ -1,3 +1,4 @@
+# GRUPPE 21
 import unittest
 import cv2 as cv
 from app.imgstf import core

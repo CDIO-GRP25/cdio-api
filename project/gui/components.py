@@ -1,3 +1,4 @@
+# GRUPPE 21
 import tkinter as tk
 from PIL import Image, ImageTk
 from .db import NumDB, SymDB

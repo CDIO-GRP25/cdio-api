@@ -1,3 +1,4 @@
+# GRUPPE 21
 import numpy as np
 import pickle
 from pymongo import MongoClient

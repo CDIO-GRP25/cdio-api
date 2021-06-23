@@ -1,3 +1,4 @@
+# GRUPPE 21
 from cvengine import edge as im
 
 class GameState:

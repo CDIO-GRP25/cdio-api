@@ -1,3 +1,4 @@
+# GRUPPE 21
 import os
 import tkinter as tk
 from database.mongo import MongoDB

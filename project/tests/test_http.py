@@ -1,3 +1,4 @@
+# GRUPPE 21
 import requests
 import cv2 as cv
 

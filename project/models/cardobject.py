@@ -1,3 +1,4 @@
+# GRUPPE 21
 from .cornerobject import CornerObject
 import json
 import numpy as np

@@ -1,3 +1,4 @@
+# GRUPPE 21
 from cv2 import bitwise_xor, imshow, waitKey
 
 
