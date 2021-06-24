@@ -11,6 +11,7 @@ build:
 	sudo docker build -t cdio ..
 
 deploy:
+	sudo docker login
 	sudo docker build -t martinmaartensson/cdio ..
 	sudo docker push martinmaartensson/cdio
 

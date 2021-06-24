@@ -1,7 +1,6 @@
 # GRUPPE 21
+from itertools import chain
 from cv2 import bitwise_xor, imshow, waitKey
-
-
 class CornerObject:
     def __init__(self, img, val=None):
         self.img = img
@@ -22,12 +21,4 @@ class CornerObject:
 
     def check_similarity(self, other):
         xor = bitwise_xor(self.img, other.img)
-        return self.find_white_pixels(xor)
-
-    def find_white_pixels(self, img):
-        out = 0
-        for x in img:
-            for y in x:
-                if y != 0:
-                    out += 1
-        return out
+        return len([x for sub in xor for x in sub if x == 1])
