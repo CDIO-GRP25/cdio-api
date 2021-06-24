@@ -10,15 +10,10 @@ class CornerObject:
         return self.val
 
     def find_value(self, others):
-        lowest = 100
-        out = ''
-        for obj in others:
-            r = self.check_similarity(obj)
-            if r < lowest:
-                lowest = r
-                out = obj.val
-        self.val = out
+        self.val = min(others, key=self.difference)
 
-    def check_similarity(self, other):
-        xor = bitwise_xor(self.img, other.img)
-        return len([x for sub in xor for x in sub if x == 1])
+    def difference(self, other):
+        return len([x for sub
+            in bitwise_xor(self.img, other.img)
+            for x in sub
+            if x == 1]))

@@ -21,6 +21,7 @@ class BoardView(tk.Frame):
         self.db = DB()
         cv = CVEngine()
         self.board = cv.gamestate_from_board(self.db.db, im.get(image_path))
+        print(self.board.json())
         self.master = master
         self.grid()
         self.create_widgets()
